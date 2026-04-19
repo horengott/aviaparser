@@ -61,7 +61,7 @@ function render() {
         
         const timeCell = document.createElement('div');
         timeCell.className = 'time-cell';
-        timeCell.textContent = `${h}:00`;
+        timeCell.textContent = `${h.toString().padStart(2, '0')}:00`;
         row.appendChild(timeCell);
 
         for (let d = 0; d < 7; d++) {
@@ -83,7 +83,13 @@ function render() {
                 else if (f.price < 250) colorClass = 'price-med';
 
                 el.className = `flight-tag ${colorClass}`;
-                el.innerHTML = `${f.dest} <span>${f.company}</span> <strong>${f.price}€</strong>`;
+                el.innerHTML = `
+                    <div class="flight-tag-header">
+                        <span class="flight-dest">${f.dest}</span>
+                        <span class="flight-price">${f.price}€</span>
+                    </div>
+                    <div class="flight-company">${f.company}</div>
+                `;
                 slot.appendChild(el);
             });
 
