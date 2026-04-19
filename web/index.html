@@ -1,11 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Vuelos Disponibles</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    
+
+    <header>
+        <h1>vuelos disponibles</h1>
+        <div class="top-controls">
+            <select id="originSelect">
+                <option value="Madrid">Madrid (MAD)</option>
+                <option value="Barcelona">Barcelona (BCN)</option>
+                <option value="Valencia">Valencia (VLC)</option>
+                <option value="Sevilla">Sevilla (SVQ)</option>
+            </select>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <aside class="filters">
+            <div class="filter-section">
+                <h3>Filtros</h3>
+                
+                <div class="filter-group">
+                    <label>Destino</label>
+                    <select id="destFilter">
+                        <option value="Todos">Todos</option>
+                        <option value="Londres">Londres</option>
+                        <option value="París">París</option>
+                        <option value="Roma">Roma</option>
+                        <option value="Berlín">Berlín</option>
+                        <option value="Ámsterdam">Ámsterdam</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>Precio máximo (€)</label>
+                    <input type="number" id="priceFilter" value="500">
+                </div>
+
+                <div class="filter-group">
+                    <label>Compañía</label>
+                    <select id="companyFilter">
+                        <option value="Todas">Todas</option>
+                        <option value="Iberia">Iberia</option>
+                        <option value="Ryanair">Ryanair</option>
+                        <option value="Vueling">Vueling</option>
+                        <option value="Lufthansa">Lufthansa</option>
+                    </select>
+                </div>
+            </div>
+        </aside>
+
+        <main class="calendar-wrapper">
+            <div class="calendar-header" id="calendarHeader">
+                <div class="time-label-header">Hora</div>
+            </div>
+            <div class="calendar-body" id="calendarBody">
+            </div>
+        </main>
+    </div>
+
+    <script src="main.js"></script>
 </body>
 </html>

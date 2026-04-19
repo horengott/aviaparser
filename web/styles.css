@@ -1,0 +1,182 @@
+:root {
+    --bg-black: #000000;
+    --panel-dark: #1c1c1e;
+    --panel-light: #2c2c2e;
+    --text-white: #ffffff;
+    --text-gray: #8e8e93;
+    --accent-blue: #0a84ff;
+    --price-green: #30d158;
+    --price-yellow: #ffd60a;
+    --price-red: #ff453a;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, system-ui, sans-serif;
+}
+
+body {
+    background-color: var(--bg-black);
+    color: var(--text-white);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+header {
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+#originSelect {
+    background: var(--panel-dark);
+    color: var(--text-white);
+    border: 1px solid #333;
+    padding: 10px 20px;
+    border-radius: 12px;
+    outline: none;
+}
+
+.main-container {
+    display: flex;
+    flex: 1;
+    padding: 0 20px 20px 20px;
+    gap: 20px;
+    overflow: hidden;
+}
+
+.filters {
+    width: 260px;
+    background: var(--panel-dark);
+    border-radius: 20px;
+    padding: 24px;
+}
+
+.filter-section h3 {
+    margin-bottom: 20px;
+    color: var(--text-gray);
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.filter-group {
+    margin-bottom: 20px;
+}
+
+.filter-group label {
+    display: block;
+    font-size: 13px;
+    color: var(--text-gray);
+    margin-bottom: 8px;
+}
+
+.filter-group select, .filter-group input {
+    width: 100%;
+    background: var(--bg-black);
+    color: var(--text-white);
+    border: 1px solid #333;
+    padding: 12px;
+    border-radius: 10px;
+    outline: none;
+}
+
+.calendar-wrapper {
+    flex: 1;
+    background: var(--panel-dark);
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.calendar-header {
+    display: grid;
+    grid-template-columns: 80px repeat(7, 1fr);
+    background: var(--panel-dark);
+    border-bottom: 1px solid #333;
+}
+
+.time-label-header {
+    padding: 15px;
+    font-size: 12px;
+    color: var(--text-gray);
+    text-align: center;
+}
+
+.day-cell-header {
+    padding: 15px;
+    text-align: center;
+    border-left: 1px solid #2c2c2e;
+}
+
+.day-name {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.day-date {
+    font-size: 11px;
+    color: var(--text-gray);
+}
+
+.calendar-body {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.hour-row {
+    display: grid;
+    grid-template-columns: 80px repeat(7, 1fr);
+    border-bottom: 1px solid #2c2c2e;
+    min-height: 100px;
+}
+
+.time-cell {
+    font-size: 12px;
+    color: var(--text-gray);
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+    border-right: 1px solid #2c2c2e;
+}
+
+.day-slot {
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    border-right: 1px solid #2c2c2e;
+}
+
+.flight-tag {
+    padding: 8px;
+    border-radius: 8px;
+    color: #000;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.flight-tag span {
+    display: block;
+    font-weight: 400;
+    font-size: 10px;
+    opacity: 0.8;
+}
+
+.price-low { background-color: var(--price-green); }
+.price-med { background-color: var(--price-yellow); }
+.price-high { background-color: var(--price-red); }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: #444; border-radius: 10px; }
