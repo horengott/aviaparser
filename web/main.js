@@ -5,19 +5,37 @@ const priceFilter = document.getElementById('priceFilter');
 const companyFilter = document.getElementById('companyFilter');
 
 const days = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
-const destinations = ['Londres', 'París', 'Roma', 'Berlín', 'Ámsterdam'];
-const companies = ['Iberia', 'Ryanair', 'Vueling', 'Lufthansa'];
-
 let flightsData = [];
 
-function init() {
+const iataCodes = {
+    "Londres": "LON", "París": "PAR", "Roma": "ROM", "Berlín": "BER", "Ámsterdam": "AMS"
+};
+
+async function init() {
     generateDates();
-    generateMockData();
-    render();
-    
-    [destFilter, priceFilter, companyFilter].forEach(el => {
-        el.addEventListener('input', render);
-    });
+    destFilter.addEventListener('change', loadFlightsFromServer);
+    priceFilter.addEventListener('input', renderCalendar);
+    companyFilter.addEventListener('input', renderCalendar);
+    await loadFlightsFromServer();
+}
+
+async function loadFlightsFromServer() {
+    const destinationName = destFilter.value;
+    const iataCode = iataCodes[destinationName];
+
+    if (!iataCode) {
+        calendarBody.innerHTML = '<div style="padding: 24px;">Selecciona un destino:</div>';
+        return;
+    }
+
+    try {
+        calendarBody.innerHTML = '<div style="padding: 24px;">Buscando vuelos en tiempo real...</div>';
+        const response = await fetch(`http://127.0.0.1:8000/api/flights?destination=${iataCode}`);
+        flightsData = await response.json();
+        renderCalendar();
+    } catch (error) {
+        calendarBody.innerHTML = '<div style="padding: 24px; color: #f87171;">no se ha podido conectarse al servidor.</div>';
+    }
 }
 
 function generateDates() {
@@ -25,7 +43,6 @@ function generateDates() {
     for (let i = 0; i < 7; i++) {
         const date = new Date(today);
         date.setDate(today.getDate() + i);
-        
         const div = document.createElement('div');
         div.className = 'day-cell-header';
         div.innerHTML = `
@@ -36,24 +53,10 @@ function generateDates() {
     }
 }
 
-function generateMockData() {
-    for (let i = 0; i < 100; i++) {
-        flightsData.push({
-            dayOffset: Math.floor(Math.random() * 7),
-            hour: Math.floor(Math.random() * 24),
-            dest: destinations[Math.floor(Math.random() * destinations.length)],
-            company: companies[Math.floor(Math.random() * companies.length)],
-            price: Math.floor(Math.random() * 450) + 20
-        });
-    }
-}
-
-function render() {
+function renderCalendar() {
     calendarBody.innerHTML = '';
-    
-    const fDest = destFilter.value;
-    const fPrice = parseInt(priceFilter.value);
-    const fComp = companyFilter.value;
+    const maxPrice = parseInt(priceFilter.value);
+    const selectedCompany = companyFilter.value;
 
     for (let h = 0; h < 24; h++) {
         const row = document.createElement('div');
@@ -71,28 +74,26 @@ function render() {
             const matches = flightsData.filter(f => 
                 f.dayOffset === d && 
                 f.hour === h &&
-                (fDest === 'Todos' || f.dest === fDest) &&
-                (f.price <= fPrice) &&
-                (fComp === 'Todas' || f.company === fComp)
+                (f.price <= maxPrice) &&
+                (selectedCompany === 'Todas' || f.company === selectedCompany)
             );
 
             matches.forEach(f => {
                 const el = document.createElement('div');
                 let colorClass = 'price-high';
-                if (f.price < 100) colorClass = 'price-low';
-                else if (f.price < 250) colorClass = 'price-med';
+                if (f.price < 60) colorClass = 'price-low';
+                else if (f.price < 120) colorClass = 'price-med';
 
                 el.className = `flight-tag ${colorClass}`;
                 el.innerHTML = `
                     <div class="flight-tag-header">
-                        <span class="flight-dest">${f.dest}</span>
+                        <span class="flight-dest">${destFilter.value}</span>
                         <span class="flight-price">${f.price}€</span>
                     </div>
                     <div class="flight-company">${f.company}</div>
                 `;
                 slot.appendChild(el);
             });
-
             row.appendChild(slot);
         }
         calendarBody.appendChild(row);

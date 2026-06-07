@@ -7,65 +7,52 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div class="header-top">
+        <h1>Vuelos Disponibles</h1>
+        <div class="origin-badge">Madrid (MAD)</div>
+    </div>
 
-    <div class="app-container">
-        <header class="top-bar">
-            <h1>Vuelos Disponibles</h1>
-            <div class="top-controls">
-                <select id="originSelect">
-                    <option value="Madrid">Madrid (MAD)</option>
-                    <option value="Barcelona">Barcelona (BCN)</option>
-                    <option value="Valencia">Valencia (VLC)</option>
-                    <option value="Sevilla">Sevilla (SVQ)</option>
+    <div class="main-container">
+        <aside class="filters-panel">
+            <h2>Filtros</h2>
+            
+            <div class="filter-group">
+                <label for="destFilter">Destino</label>
+                <select id="destFilter">
+                    <option value="Berlín">Berlín</option>
+                    <option value="Londres">Londres</option>
+                    <option value="París">París</option>
+                    <option value="Roma">Roma</option>
+                    <option value="Ámsterdam">Ámsterdam</option>
                 </select>
             </div>
-        </header>
 
-        <div class="main-content">
-            <aside class="sidebar-card">
-                <h3>Filtros</h3>
-                
-                <div class="filter-group">
-                    <label>Destino</label>
-                    <div class="select-wrapper">
-                        <select id="destFilter">
-                            <option value="Todos">Todos</option>
-                            <option value="Londres">Londres</option>
-                            <option value="París">París</option>
-                            <option value="Roma">Roma</option>
-                            <option value="Berlín">Berlín</option>
-                            <option value="Ámsterdam">Ámsterdam</option>
-                        </select>
-                    </div>
-                </div>
+            <div class="filter-group">
+                <label for="priceFilter">Precio máximo (€)</label>
+                <input type="range" id="priceFilter" min="20" max="500" value="500">
+            </div>
 
-                <div class="filter-group">
-                    <label>Precio máximo (€)</label>
-                    <input type="number" id="priceFilter" value="500">
-                </div>
+            <div class="filter-group">
+                <label for="companyFilter">Compañía</label>
+                <select id="companyFilter">
+                    <option value="Todas">Todas</option>
+                    <option value="Ryanair">Ryanair</option>
+                    <option value="Vueling">Vueling</option>
+                    <option value="Iberia">Iberia</option>
+                    <option value="Air Europa">Air Europa</option>
+                    <option value="EasyJet">EasyJet</option>
+                </select>
+            </div>
+        </aside>
 
-                <div class="filter-group">
-                    <label>Compañía</label>
-                    <div class="select-wrapper">
-                        <select id="companyFilter">
-                            <option value="Todas">Todas</option>
-                            <option value="Iberia">Iberia</option>
-                            <option value="Ryanair">Ryanair</option>
-                            <option value="Vueling">Vueling</option>
-                            <option value="Lufthansa">Lufthansa</option>
-                        </select>
-                    </div>
+        <main class="calendar-container">
+            <div class="calendar-header" id="calendarHeader">
+                <div class="time-header-cell">Hora</div>
                 </div>
-            </aside>
-
-            <main class="calendar-card">
-                <div class="calendar-header" id="calendarHeader">
-                    <div class="time-label-header">Hora</div>
+            
+            <div class="calendar-body" id="calendarBody">
                 </div>
-                <div class="calendar-body" id="calendarBody">
-                </div>
-            </main>
-        </div>
+        </main>
     </div>
 
     <script src="main.js"></script>
